@@ -1,0 +1,25 @@
+# Este es el archivo de configuración de mensajes del menú y teclas aceleradoras 
+# en español para el programa vbb. Las líneas que comienzan por hash o estén vacías se ignoran.
+# Este archivo consta de dos secciones, MENU y SAVE, que deben apaecer en ese orden.
+# El nombre de sección va sólo en una línea, así como cada elemento de la sección.
+
+# La sección MENU contiene los mensajes visibles, en el orden en que deben aparecer. NO se puede
+# alterar el orden. Cada ítem del menú puede tener un único carácter acelerador, que es aquel que
+# se escriba entre paréntesis. Todos los caracteres aceleradores deben ser distintos, teniendo
+# en cuenta que NO se diferencian mayúsculas y minúsculas.
+MENU
+(D)ibuja/Borra
+(C)arac. línea
+(S)iguiente
+(A)nterior
+Borra (t)odo
+Borra (f)ondo
+Borra (l)inea
+(G)raba
+Fin/(Q)uit
+
+# La sección SAVE contiene los mensajes que aparecen cuando se ha grabado, y cuando no se ha podido grabar,
+# una pizarra en un archivo. Ambos mensajes deben contener en algún lugar la cadena %s, que será sustituída por el nombre del archivo.
+SAVE
+Pizarra actual grabada en el archivo %s
+No se pudo escribir el archivo %s. Pizarra NO grabada.

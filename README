@@ -1,0 +1,76 @@
+This is the README file for project vbb (VirtualBlackboard).
+
+1) What is VirtualBlackboard?
+
+Some years ago, pen-tablet computers appeared and now, either as such or in the form of tablets, they have become popular.
+This program is a tool to help in presentations or lectures in which you show a set of slides (in PDF) but also need to
+write on a traditional blackboard. The program allows the screen of the pen-tablet, which is being projected, to be used
+as both: the screen to show the slides and the blackboard in which you write, erase, modify, etc. either on the slides,
+or without any slide at all, just as an empty blackboard.
+
+2) What do I need to run VirtualBlackboard?
+
+A pen-tablet computer with any modern Linux distribution installed. Versions for Mac OSX could be done, and a functional
+(but yet under testing) Windows version has been compiled using Cygwin. Moreover, since the SDL and Pango libraries on which
+vbb is based are multiplatform, completely native versions for OSX and Windows should be possible, but I haven't done that yet.
+
+3) How to install the program?
+
+First, check that all files included in the MANIFEST file are present and are in the same directory.
+Then, it is better to create a build subdirectory and compile into it:
+
+$ mkdir build
+$ cd build
+$ cmake -Wno-dev ../  (or ccmake -Wno-dev ../ if you want to change prefix install or any other thing, unless you edit CMakeLists.txt yourself).
+$ make vbb
+$ sudo make install
+$ make doc (optionally, if you have installed doxygen and the dot command from the graphviz package)
+
+Notice that make doc will only work from inside the build directory, since input is coded as ../ and ouput directory as ../doc
+If you intend to run doxygen from other place, change this in the Doxyfile.
+
+cmake can give some problems if it is not able to find SDL or Pango packages. If so, try to install the extra modules for CMake
+(in Fedora the package is called extra-cmake-modules) and try again. Ultimately, you can set manually the INCLUDE_DIRECTORIES and
+TARGET_LINK_LIBRARIES.
+
+In any case, if you don't wish or know how to use cmake, the program is sufficiently simple to be compiled and installed with the
+provided compinst shell script. Just run
+
+$ ./compinst
+
+and answer with your password to the request of sudo. In this case, documentation could be generated as
+
+$ mkdir -p build
+$ cd build
+$ doxygen ../Doxyfile
+
+4) How to run the program?
+
+Open a console and execute
+
+$ vbb any_pdf_file
+
+or simply
+
+$ vbb
+
+to open a white empty blackboard.
+
+In the first execution, a message will be shown in the console informing you that the global configuration files, /etc/vbb/vbb.cfg and
+/etc/vbb/vbb_menu have been copied to you home directory as $HOME/.vbb.cfg and $HOME/.vbb_menu respectively. Close the program and
+edit these files to reflect your preferences, that will be honoured in next run. Also, you can execute
+
+$ man vbb
+
+to read about the program and its usage.
+
+5) Under which conditions can I use or modify this program?
+
+The program is distributed under the terms and conditions of the GNU Public License version 3 (or any later version, at your choice) so
+you can use it for any purpose, modify it and distribute it under the same license. A copy of the text of the license is included.
+
+6) Who wrote VirtualBlackboard?
+
+Juan Domingo, currently a professor in the School of Engineering, University of Valencia (SPAIN). For any questions, doubts, suggestions
+or contributions (including translations of the menu and/or the man page) email me to Juan.Domingo@uv.es
+

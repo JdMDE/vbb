@@ -1,0 +1,26 @@
+# This is the message configuration file in English for the menu and accelerator keys
+# of the program vbb. Lines beginning with hash or which are empty will be ignored.
+# This file has only two sections, MENU and SAVE, which must appear in precisely that order.
+# The section's name must be written alone in a line, as long as each element of the section
+
+# Section MENU contains the visible messages, in the order in which they must be shown. The
+# order CANNOT be changed. Each menu item can have a single accelerator character which will
+# be the one written inside (). All accelerators must be different, taking into account that
+# they are taken as case-insensitive.
+MENU
+(D)raw/Erase
+(C)harac. line
+(N)ext
+(P)revious
+Erase (a)ll
+Erase (b)ackground
+Erase (l)ines
+(S)ave
+(Q)uit
+
+# The SAVE section contains the message that are shown when a blackboard has been saved, and
+# when the writing of the file has failed. Each of these strings must contain the string %s
+# which will be substituted by the file name.
+SAVE
+Current blackboard saved in file %s
+Could not write file %s. Blackboard NOT saved.

@@ -1,0 +1,22 @@
+The following files constitute the current distribution of vbb in its source form.
+All of them should be present.
+
+MANIFEST:             this file.
+README:               a file with information and compilation directions.
+CMakeLists.txt:       the cmake master file.
+compinst:             a shell script to compile and install vbb if you don't want or do not wish to use cmake (not the recommended way)
+gpl-3.0.txt:          the text of the GNU General Public Licence v 3.0.
+Doxyfile:	      the configuration file to build the documentation with doxygen
+vbb.cfg:              original configuration file that will be installed in /etc/vbb.
+vbb_en_menu:          the text of the program's menu in English.
+vbb_es_menu:          the text of the program's menu in Spanish.
+vbb_en_man.1:         the man page of vbb in English.
+vbb_es_man.1:         the man page of vbb in Spanish.
+vbb_splash.pdf:       the splash screen to be show optionally at the start of the program.
+config.h:
+canvas.h:
+pdfslides.h:	      the headers for the three classes (Config, Canvas and PDFSlides).
+config.cpp:
+canvas.cpp:
+pdfslides.cpp:
+main.cpp:             the source files of the classes and of the main program.

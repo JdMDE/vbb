@@ -1,0 +1,162 @@
+.\" The following requests are required for all man pages.
+.Dd August 22, 2004
+.Os OPERATING_SYSTEM Linux
+.Dt vbb 1
+.Sh NAME
+.Nm vbb
+.Nd Virtual Blackboard
+.\" This next request is for sections 2 and 3 only.
+.\" .Sh LIBRARY
+.Sh SYNOPSIS 
+.Nm vbb
+.
+.Op Ar PDF_file_to_load
+.Sh DESCRIPTION 
+vbb is a virtual blackboard to load PDF files with one or many pages (usually,
+the typical slides of a speech or lecture) and write over them, or write on an
+empty blackboard. Then, it allows the following actions, controlled by a menu in
+the upper part of the screen or window:
+.Bl -inset -offset indent
+.It Em Draw/Erase
+Toggles between draw and erase mode. In each of these modes pressing any
+button of the mouse, or putting the pen over the tactile screen starts drawing or
+erasing. The little rectangle at the upper-left corner shows the mode as red or
+green color
+.It Em Line charac.
+Pops up an area on which mouse or pen clicks allow changing the width and color of
+the drawing line.
+.It Em Next
+Go to the next slide. It is ignored if we are at the last slide.
+.It Em Previous
+Go to the previous slide. It is ignored if we are at the first slide.
+.It Em Erase all
+Erases the lines that user has drawn and the slide that is being shown.
+.It Em Erase background
+Erases only the slide that is being shown, leaving the drawn lines.
+.It Em Erase lines   
+Erases the lines drawn by the user, leaving the slide.
+.It Em Save
+Saves the current state (slide and lines) of the blackboard in a .pnm file whose
+name is announced in a pop-up message.
+.It Em Quit
+Quits the program
+.El
+
+Notice that every option of the menu can also be accessed through an accelerator
+key marked with a different color in the option names of the menu. Both, the menu
+texts and the accelerator keys can be configured (see below).
+
+Apart of these, the program accept the following key presses (not configurable) with
+the following associated actions:
+
+.Bl -inset -offset indent
+.It Em Right arrow in the arrow's keyboard
+Equivalent to 'Next'
+
+.It Em Left arrow in the arrow's keyboard
+Equivalent to 'Previous'
+
+.It Em PgUp
+Goes to the last slide
+
+.It Em Up arrow in the arrow's keyboard
+Goes 10 pages forward (FastForward), or up to the end if less than 10 slides remain.
+
+.It Em PgDown
+Goes to the first slide
+
+.It Em Down arrow in the arrow's keyboard
+Goes 10 pages back (FastRewind), or goes to the first one if the current slide is previous to the tenth.
+.El
+
+.Sh OPTIONS
+The command line accepts only up to one option: the name of the .pdf file to be loaded. If it is not
+given an empty (white) blackboard starts. All other options must be configured by changing the configuration
+files (see below).
+.El
+
+.\" The following requests should be uncommented and used where appropriate.
+.\" .Sh IMPLEMENTATION NOTES
+.\" This next request is for sections 2, 3 and 9 function return values only.
+.Sh RETURN VALUES
+The program returns 0 if the user exits from it in the intended way (clicking on 'Quit') and 1 if the exit is
+due to an error. In this case usually a message should be shown in the console with a sufficiently descriptive
+text with the cause of the error, unless it is a programming bug like those which generate core files.
+
+.Sh FILES
+.Pa /etc/vbb.cfg
+Global configuration file containing several options. This file is automatically
+copied to the home user's directory as file .vbb.cfg whenever such file does not exists.
+This local copy is what each user should modify according to his/her preferences.
+The format and contents of this file are explained in comments into the file itself.
+
+.Pa /etc/vbb_menu
+Local language configuration file by default (unless otherwise stated in .vbb.cfg or $HOME/.vb.cfg). This file
+is automatically copied to the home user's directory as file .vbb_menu whenever such file does not exists.
+It contains the texts of the menu in the chosen language, as long as the choices for the accelerator keys.
+Currently two of these files (vbb_es_menu and vbb_en_menu) are distributed but I will be grateful, and I will
+gladly include, translations to other languages that any user wishes to make and send to me. The format and
+contents of this file are explained as comments in the file itself.
+
+.Pa /etc/vbb_splash.pdf
+Banner shown at the start of the program showing the name of it, author's name and license notice.
+You can avoid showing this banner setting in the configuration file the value of parameter SplashFile to None.
+
+.Pa $HOME/.vbb.cfg
+See above
+
+.Pa $HOME/.vbb_menu
+See above
+
+.Pa /usr/lib[64]/libSDL.so
+
+.Pa /usr/lib[64]/libSDL_ttf.so
+The two libraries part of the SDL package needed to run the program. 
+
+.Pa /usr/lib[64]/libpoppler-cpp.so
+
+The C++ interface to the Poppler library to load and manipulate .pdf archives, also
+needed for vbb. It is assumed that libpoppler.so will be installed, if this one is.
+
+Remember to install the corresponding packages of you distribution containing these libraries, and also their
+development versions if you wish to compile vbb from the sources.
+
+.\" This next request is for sections 1, 6, 7, 8 and 9 only
+.\"     (command return values (to shell) and fprintf/stderr type diagnostics).
+.\" .Sh DIAGNOSTICS
+.\" .Sh COMPATIBILITY
+.\" This next request is for sections 2, 3 and 9 error and signal handling only.
+.\" .Sh ERRORS
+.\" .Sh SEE ALSO
+.\" .Sh STANDARDS
+.Sh HISTORY
+This program was first written as a simple tool to use in a class with a pen
+tablet-type computer connected to a projector to substitute the traditional
+blackboard. The idea is to write on the computer's screen as if it was the real
+blackboard, and be able to store what the lecturer has written so that it can
+be given later to the alumni as additional material.
+
+.Sh AUTHOR
+.An Juan Domingo, Dpt. of Computing, ETSE, University of Valencia (Spain) Aq Juan.Domingo@uv.es
+.Sh BUGS
+Lots of them, surely. This program, even tested for several years with different pen-tablet computers, is still in
+a preliminary version. If you detect a bug, please send me an email with a description including, if possible, your
+version of the operating system and of the SDL and Poppler libraries used.
+
+.Sh LICENSE
+Copyright (C) 2020, Juan Domingo
+
+.Bl -inset -offset indent
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+

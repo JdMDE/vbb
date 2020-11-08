@@ -1,0 +1,176 @@
+.\" The following requests are required for all man pages.
+.Dd August 22, 2020
+.Os OPERATING_SYSTEM Linux
+.Dt vbb 1
+.Sh NAME
+.Nm vbb
+.Nd Virtual Blackboard
+.\" This next request is for sections 2 and 3 only.
+.\" .Sh LIBRARY
+.Sh SINOPSIS 
+.Nm vbb
+.Op Ar archivo_PDF_para_cargar
+.Sh DESCRIPCIÓN
+vbb es una pizarra virtual para cargar archivos PDF con una o muchas páginas
+(usualmente, las típicas transparencias de una conferencia o clase) y escribir sobre
+ellas, o bien escribir sobre una pizarra vacía. Entonces se pueden efectuar las
+siguientes acciones, controladas por el menú de la parte superior de la pizarra o
+ventana:
+.Bl -inset -offset indent
+.It Em Dibujar/Borrar
+Conmuta entre los modos de dibujo y borrado. En cualquiera de ellos pulsando un
+botón del ratón o poniendo la pluma sobre la pantalla se puede comenzar a dibujar
+o borrar. El pequeño rectángulo en la esquina superior izquierda marca el modo con
+color verde o rojo.
+.It Em Carac. línea
+Muestra un área en la cual pulsaciones del ratón o de la pluma permiten cambiar
+la anchura y el color de la línea de dibujo.
+.It Em Siguiente
+Muestra la siguiente página. Se ignora si estamos viendo la última página.
+.It Em Anterior
+Muestra la anterior página. Se ignora si estamos viendo la primera página.
+.It Em Borra todo
+Borra las líneas que el usario haya dibujado y la página que esté siendo mostrada.
+.It Em Borra fondo
+Borra sólo la página que esté siendo mostrada, dejando las líneas dibujadas.
+.It Em Borra líneas
+Borra las líneas que el usario haya dibujado, dejando la página.
+.It Em Grabar
+Graba el actual estado (líneas e imagen) de la pizarra en un archivo .pnm cuyo
+nombre se muestra en un mensaje.
+.It Em Salir
+Finaliza el programa.
+.El
+
+Cualquiera de estas acciones se activa igualmente pulsando una tecla (tecla aceleradora),
+que es la letra que está marcada en color diferente en los nombres de las opciones que
+aparecen en el menú. Tanto los textos como las teclas aceleradoras son configurables
+(véase abajo).
+
+Además de éstas, funcionan las siguientes teclas aceleradoras (no configurables) con sus
+acciones asociadas:
+
+.Bl -inset -offset indent
+.It Em Flecha hacia la derecha del teclado de flechas
+Equivalente a 'Siguiente'
+
+.It Em Flecha hacia la izquierda del teclado de flechas
+Equivalente a 'Anterior'
+
+.It Em PgUp
+Va a la última transparencia
+
+.It Em Flecha arriba del teclado de flechas
+Avanza 10 páginas (FastForward), o hasta el final, si quedan menos de 10.
+
+.It Em PgDown
+Va a la primera transparencia
+
+.It Em Flecha abajo del teclado de flechas
+Retrocede 10 páginas (FastRewind), o va a la primera, si la actual es anterior a 10.
+.El
+
+.Sh OPCIONES
+La línea de órdenes sólo acepta como opción el nombre del archivo .pdf; si no se da,
+se inicia una pizarra en blanco. Todo lo demás se configura cambiando los archivos de
+configuración (véase abajo). 
+.El
+.\" The following requests should be uncommented and used where appropriate.
+.\" .Sh IMPLEMENTATION NOTES
+.\" This next request is for sections 2, 3 and 9 function return values only.
+.Sh VALOR DEVUELTO
+El programa devuelve 0 si se sale de él del modo supuesto (pulsando el menú Salir) y 1
+si se sale por error de cualquier tipo. En este caso normalemente debería mostrarse por
+consola un texto suficientemente indicativo de la causa del error, salvo que se trate
+de un fallo de programación como los que generan cores.
+
+.\" This next request is for sections 1, 6, 7 and 8 only.
+
+.Sh ARCHIVOS
+.Pa /etc/vbb.cfg
+Archivo de configuración global que contiene varias opciones. Este archivo se copia
+automáticamente al directorio 'home' del usuario como .vbb.cfg si $HOME/.vbb.cfg no existe.
+Esta copia local es la que cada usuario debería modificar de acuerdo a sus
+preferencias. El formato y contenidos de este archivo se explican en comentarios
+dentro del propio archivo.
+
+.Pa /etc/vbb_menu
+Archivo de configuración de idioma por defecto (salvo que se indique otro en vbb.cfg ó $HOME/.vbb.cfg).
+Este archivo se copia automáticamente al directorio 'home' del usuario como .vbb_menu si $HOME/.vbb_menu
+no existe. Contiene los textos del menú en el idioma elegido, así como las elecciones para las teclas de
+aceleración. Actualmente se distribuyen dos, vbb_es_menu y vbb_en_menu, pero agradeceré e incluiré
+gustosamente la traducción a otras lenguas que cualquier usuario desee hacer y me envíe. El formato
+y contenidos de este archivo se explican en comentarios dentro del propio archivo.
+
+.Pa /etc/vbb_splash.pdf
+Anuncio mostrado al inicio del programa con el nombre del programa, del autor y advertencia de licencia.
+Puede hacer que no se muestre fijando en el archivo de configuración el valor de parámetro SplashFile a None.
+
+.Pa $HOME/.vbb.cfg
+Ver arriba
+
+.Pa $HOME/.vbb_menu
+Ver arriba
+
+.Pa (Lugar_de_instalación_de_las_fuentes_TTF)/fuente_elegida.ttf
+
+Es necesario que exista instalada alguna fuente de caracteres tipo TrueType. Instale
+algún paquete que las contenga en su distribución. 
+
+.Pa /usr/lib[64]/libSDL.so
+
+.Pa /usr/lib[64]/libSDL_ttf.so
+Las dos bibliotecas parte de los paquetes SDL que hacen falta para ejecutar este
+programa. 
+
+.Pa /usr/lib[64]/libpoppler-cpp.so
+
+La interfaz desde C++ a la biblioteca Poppler de carga y manipulación de archivos .pdf, 
+también necesaria para vbb (se asume que libpoppler.so estará instalada, si éste lo está).
+
+Recuerde instalar los paquetes correspondientes que contengan estas bibliotecas, según
+su distribución de Linux, y también sus versiones de desarrollo si desea compilar
+vbb a partir de las fuentes.
+
+.\" This next request is for sections 1, 6, 7, 8 and 9 only
+.\"     (command return values (to shell) and fprintf/stderr type diagnostics).
+.\" .Sh DIAGNOSTICS
+.\" .Sh COMPATIBILITY
+.\" This next request is for sections 2, 3 and 9 error and signal handling only.
+.\" .Sh ERRORS
+.\" .Sh SEE ALSO
+.\" .Sh STANDARDS
+.Sh HISTORIA
+Este programa surgió como una herramienta simple para usarlo en clase con un
+ordenador de tipo pen-tablet sustituyendo a la pizarra tradicional. La idea es
+escribir sobre la pantalla del ordenador, como si fuese la pizarra real, y poder
+almacenar lo que el profesor ha escrito de modo que pueda darse después a los
+alumnos como material adicional. Responde a la tradicional queja de "¡Es que no
+nos da tiempo a copiar!"
+
+.Sh AUTOR
+.An Juan Domingo, Dpt. of Computing, ETSE, University of Valencia (Spain) Aq Juan.Domingo@uv.es
+.Sh BUGS
+Gran cantidad de ellos, seguramente. El programa, aunque probado durante varios años con diferentes
+ordenadores tipo pen-tablet, está aún en versión preliminar. Si detecta algún bug, por favor,
+envíeme correo con una descripción, incluyendo si es posible su versión del sistema operativo y de
+las blbiotecas SDL y Poppler usadas.
+
+.Sh LICENCIA
+Copyright (C) 2020, Juan Domingo
+
+.Bl -inset -offset indent
+Este programa es software libre. Puede redistribuirlo y/o modificarlo
+bajo los términos de la Licencia Pública General de GNU según es
+publicada por la Free Software Foundation, bien de la versión 3 de
+dicha Licencia o bien (según su elección) de cualquier versión
+posterior.
+
+Este programa se distribuye con la esperanza de que sea útil, pero SIN
+NINGUNA GARANTÍA, incluso sin la garantía MERCANTIL implícita o sin
+garantizar la CONVENIENCIA PARA UN PROPÓSITO PARTICULAR. Véase la
+Licencia Pública General de GNU para más detalles.
+
+Debería haber recibido una copia de la Licencia Pública General de GNU junto
+con este programa. Si no ha sido así, vea <https://www.gnu.org/licenses/>.
+

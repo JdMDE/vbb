@@ -1,0 +1,53 @@
+#!/bin/bash
+# This is a simple script to compile and install vbb, but it is not the recommended way.
+# If possible, use cmake, as stated in the README file.
+
+# Set this variables to the correct values for your system. 
+POPPLER_INC=/usr/include/poppler/cpp
+SDL_INC=/usr/include/SDL
+
+LIBS_LOCATION=/usr/lib64
+POPPLER_LIB=poppler-cpp
+SDL_LIB=SDL
+SDL_TTF_LIB=SDL_ttf
+X11_LIB=X11
+
+# Change LANG to en or es if you want menu and man page in English or in Spanish
+# Also, you can write your own translations of one or both of this files and use themm
+LANG=es
+
+# Nothing should be changed from here
+
+CFLAGS="-Wall -Winline -O2 -I$POPPLER_INC -I$SDL_INC"
+LINKFLAGS="-L$LIBS_LOCATION -l$POPPLER_LIB -l$SDL_LIB -l$SDL_TTF_LIB -l$X11_LIB"
+
+mkdir -p build
+cd build
+echo "Compiling sources..."
+g++ -c $CFLAGS ../config.cpp
+g++ -c $CFLAGS ../canvas.cpp
+g++ -c $CFLAGS ../pdfslides.cpp
+g++ -c $CFLAGS ../main.cpp
+echo "Linking..."
+if g++ -o vbb $LINKFLAGS config.o canvas.o pdfslides.o main.o; then
+ echo "Installing executable..."
+ sudo install vbb /usr/local/bin
+ cd ../
+ echo "Installing config file..."
+ sudo install -D --mode=0644 vbb.cfg /etc/vbb/vbb.cfg
+ echo "Installing splash file..."
+ sudo install --mode=0644 vbb_splash.pdf /etc/vbb/vbb_splash.pdf
+ echo "Installing menu file..."
+ sudo cp vbb_${LANG}_menu /etc/vbb/vbb_menu
+ sudo chmod 0644 /etc/vbb/vbb_menu
+ echo "Installing man page..."
+ sudo mkdir -p /usr/local/man/man1
+ sudo cp vbb_${LANG}_man.1 /usr/local/man/man1/vbb.1
+ sudo chmod 0644 /usr/local/man/man1/vbb.1
+ echo "Done!"
+else
+ echo "Error compiling or linking program vbb."
+fi
+
+
+
