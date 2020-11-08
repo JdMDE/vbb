@@ -63,7 +63,7 @@ int main(int argc,char *argv[])
  while (command!=Config::Quit)
  {
   // All keyboard or mouse events are read, but only those relevant will be processed
-  while (SDL_PollEvent(&ev) && (command!=Config::Quit))
+  while (SDL_WaitEvent(&ev) && (command!=Config::Quit))
   {
    // In principle, the event does not call for any command...   
    command=Config::NoCommand;
